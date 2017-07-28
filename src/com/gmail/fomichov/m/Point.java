@@ -10,13 +10,13 @@ public class Point {
         this.y = y;
     }
 
-    public double calcLenght(Point point) {
+    public double calcLength(Point point) {
         double result = Math.sqrt((Math.pow(point.x - x, 2) + Math.pow(point.y - y, 2)));
         return result;
     }
 
     public double calcLength() {
-        return calcLenght(ZERO);
+        return calcLength(ZERO);
     }
 
     public Point normalize() {
