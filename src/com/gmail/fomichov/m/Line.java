@@ -7,44 +7,52 @@ public class Line {
     private Point p1;
     private Point p2;
     private javafx.scene.shape.Line lineFx;
+    private javafx.scene.shape.Line normalizeVector;
+    private Circle findPoint;
 
     public Line(Point p1, Point p2) {
         this.p1 = p1;
         this.p2 = p2;
     }
 
+    // получаем длину отрезка
     public double calcLength() {
         return p1.calcLenght(p2);
     }
 
+    // получаем точку на отрезке по заданому проуенту
     private Point getPointOnLine(float percent) {
         Point directionPoint = p1.minusPoints(p2);
         directionPoint = directionPoint.normalize();
-        double tempLenght = percent * p1.calcLenght(p2);
-        directionPoint = directionPoint.plusMultiply(tempLenght);
+        double tempLength = percent * p1.calcLenght(p2);
+        directionPoint = directionPoint.multiplyPoints(tempLength);
         return p1.plusPoints(directionPoint);
     }
 
-    public javafx.scene.shape.Line[] getAxis() {
-        javafx.scene.shape.Line[] lineAxis = new javafx.scene.shape.Line[2];
-        lineAxis[0] = new javafx.scene.shape.Line(Main.WIDTH_SCREEN / 2, 0, Main.WIDTH_SCREEN / 2, Main.HEIGHT_SCREEN);
-        lineAxis[1] = new javafx.scene.shape.Line(0, Main.HEIGHT_SCREEN / 2, Main.WIDTH_SCREEN, Main.HEIGHT_SCREEN / 2);
-        return lineAxis;
+    // получаем точку направления единичного вектора
+    private Point getPointNormalize() {
+        Point directionPoint = p1.minusPoints(p2);
+        return directionPoint.normalize();
     }
 
-    private double getRealX(double x) {
-        return Main.WIDTH_SCREEN / 2 + x;
+    // рисуем наш отрезок и единичный вектор (для видимости на графике увеличил его длину на 100 пикселей) для сравнения
+    public void draw(Pane root, float percent) {
+        HelpDraw helpDraw = new HelpDraw();
+        // рисуем наш отрезок
+        lineFx = new javafx.scene.shape.Line(
+                helpDraw.getRealX(p1.getX()), helpDraw.getRealY(p1.getY()), // start
+                helpDraw.getRealX(p2.getX()), helpDraw.getRealY(p2.getY())); // end
+        // рисуем заданную точку на отрезке
+        findPoint = new Circle(helpDraw.getRealX(getPointOnLine(percent).getX()), helpDraw.getRealY(getPointOnLine(percent).getY()), 5);
+        // рисуем единичный вектор
+        normalizeVector = new javafx.scene.shape.Line(
+                helpDraw.getRealX(Point.ZERO.getX()), helpDraw.getRealY(Point.ZERO.getY()), // start
+                helpDraw.getRealX(getPointNormalize().multiplyPoints(100).getX()), helpDraw.getRealY(getPointNormalize().multiplyPoints(100).getY())); // end
+        root.getChildren().addAll(lineFx, findPoint, normalizeVector);
     }
 
-    private double getRealY(double y) {
-        return Main.HEIGHT_SCREEN / 2 - y;
-    }
-
-    public void draw(Pane root) {
-        lineFx = new javafx.scene.shape.Line(getRealX(p1.getX()), getRealY(p1.getY()), getRealX(p2.getX()), getRealY(p2.getY()));
-        Circle circle = new Circle(getRealX(getPointOnLine((float) 0.9).getX()), getRealY(getPointOnLine((float) 0.9).getY()), 5);
-        System.out.println(circle);
-        root.getChildren().addAll(lineFx, circle);
+    public void clear(Pane root) {
+        root.getChildren().removeAll(lineFx, findPoint, normalizeVector);
     }
 
 

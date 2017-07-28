@@ -3,15 +3,11 @@ package com.gmail.fomichov.m;
 public class Point {
     private double x;
     private double y;
-    private static Point ZERO = new Point(0, 0);
+    public static Point ZERO = new Point(0, 0);
 
     public Point(double x, double y) {
         this.x = x;
         this.y = y;
-    }
-
-    public Point() {
-
     }
 
     public double calcLenght(Point point) {
@@ -43,9 +39,8 @@ public class Point {
         return y;
     }
 
-    public Point plusMultiply(double lenght) {
+    public Point multiplyPoints(double lenght) {
         return new Point(x * lenght, y * lenght);
-
     }
 
 }
