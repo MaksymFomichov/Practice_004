@@ -1,4 +1,4 @@
-package com.gmail.fomichov.m;
+package fractal;
 
 import javafx.scene.layout.Pane;
 

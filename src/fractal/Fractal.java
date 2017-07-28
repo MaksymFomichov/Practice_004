@@ -1,5 +1,7 @@
-package com.gmail.fomichov.m;
+package fractal;
 
+import fractal.Point;
+import fractal.Triangle;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;

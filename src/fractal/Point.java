@@ -1,4 +1,4 @@
-package com.gmail.fomichov.m;
+package fractal;
 
 public class Point {
     private double x;
