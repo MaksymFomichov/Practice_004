@@ -27,7 +27,7 @@ public class Main extends Application {
         primaryStage.setHeight(HEIGHT_SCREEN);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("График функции");
+        primaryStage.setTitle("Фрактал треугольный)))");
 
         // первоначальный показ линии с искомой точкой и единичного вектора
         Point aa = new Point(hD.randomPointX(), hD.randomPointY());
