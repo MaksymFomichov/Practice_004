@@ -15,9 +15,6 @@ public class Line {
         this.p2 = p2;
     }
 
-    public Line() {
-    }
-
     // получаем длину отрезка
     public double calcLength() {
         return p1.calcLength(p2);
