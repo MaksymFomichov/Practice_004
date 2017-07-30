@@ -9,8 +9,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    public static final int WIDTH_SCREEN = 500;
-    public static final int HEIGHT_SCREEN = 500;
+    public static final int WIDTH_SCREEN = 1000;
+    public static final int HEIGHT_SCREEN = 1000;
     private HelpDraw hD = new HelpDraw();
     private Pane root = new Pane();
     private Button btnDrawTriangle = new Button();
@@ -64,9 +64,10 @@ public class Main extends Application {
             Point point1 = new Point(hD.randomPointX(), hD.randomPointY());
             Point point2 = new Point(hD.randomPointX(), hD.randomPointY());
             Point point3 = new Point(hD.randomPointX(), hD.randomPointY());
+            Triangle triangle = new Triangle(point1,point2,point3);
             int depth = Integer.parseInt(fieldDepth.getText());
             float offset = Float.parseFloat(fieldOffset.getText());
-            fractal = new Fractal(depth, offset, point1, point2, point3);
+            fractal = new Fractal(depth, offset, triangle);
             fractal.draw(root);
             root.getChildren().clear(); // чистим экран от старых изображений
             fractal.draw(root);
